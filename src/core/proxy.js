@@ -59,7 +59,7 @@ const removeRequestListener = (page, listenerName) => {
 
 const useProxyPer = {
     // Call this if request object passed
-    HTTPRequest: async (request, data) => {
+    httprequest: async (request, data) => {
         let proxy, overrides;
         // Separate proxy and overrides
         if (type(data) === "object") {
@@ -75,7 +75,7 @@ const useProxyPer = {
     },
 
     // Call this if page object passed
-    CDPPage: async (page, proxy) => {
+    cdppage: async (page, proxy) => {
         await page.setRequestInterception(true);
         const listener = "$ppp_requestListener";
         removeRequestListener(page, listener);
@@ -89,7 +89,7 @@ const useProxyPer = {
 
 // Main function
 const useProxy = async (target, data) => {
-    useProxyPer[target.constructor.name](target, data);
+    useProxyPer[target.constructor.name.toLowerCase()](target, data);
 };
 
 module.exports = useProxy;
